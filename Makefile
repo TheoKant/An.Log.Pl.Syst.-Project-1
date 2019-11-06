@@ -1,27 +1,20 @@
-CPP=gcc
+all: sort_join.o main.o relation.o tuple.o list.o
+	gcc -o EXEC/sort_join main.o sort_join.o tuple.o relation.o list.o
 
-objects=main.o list.o 
+main.o: FILES/CODE/main.c 
+	gcc -c FILES/CODE/main.c
 
-SOURCE = main.c list.c 
+list.o: FILES/CODE/list.c
+	gcc -c FILES/CODE/list.c
 
-HEADER = main.h list.h 
+sort_join.o: FILES/CODE/sort_join.c
+	gcc -c FILES/CODE/sort_join.c
 
-OUT = test
+tuple.o: FILES/CODE/tuple.c
+	gcc -c FILES/CODE/tuple.c
 
-FLAGS = -g -c 
-
-all : $(objects)
-	$(CPP) -g $(objects) -o $(OUT) 
-
-main.o: main.c
-	$(CPP) $(FLAGS) main.c
-
-list.o: list.c
-	$(CPP) $(FLAGS) list.c
-
+relation.o: FILES/CODE/relation.c
+	gcc -c FILES/CODE/relation.c
 
 clean:
-
-	rm test
-
-
+	rm *.o

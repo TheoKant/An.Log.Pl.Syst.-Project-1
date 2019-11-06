@@ -1,10 +1,10 @@
-#include "list.h"
+#include "../HEADERS/list.h"
 
 
 Listnode* initListNode(List *list)
 {
 	Listnode *new_node = malloc(sizeof(Listnode));
-	new_node->tuples = malloc(sizeof(Tuple) * list->tuples_size);
+	new_node->tuples = malloc(sizeof(tuple) * list->tuples_size);
 	new_node->current_position = 0;
 	new_node->next = NULL;
 	return new_node;
@@ -44,7 +44,7 @@ void insertNewNode(List *list)
 	list->tail = new_node;
 }
 
-void insertElement(List *list, Tuple tuple1, Tuple tuple2)
+void insertElement(List *list, tuple tuple1, tuple tuple2)
 {
 	if(isEmpty(list))
 	{
@@ -94,11 +94,6 @@ void join(relation *relR, relation *relS, List *list){
     printList(list);
 }
 
-int isEqual(relation *relR, relation *relS, int i, int k)
-{
-	return relR->tuples[i].key == relS->tuples[k].key;
-}
-
 void printList(List *list)
 {
 	Listnode *tmp = list->head;
@@ -109,14 +104,6 @@ void printList(List *list)
 	}
 	printf("\n\n");
 }
-
-void printTuples(Listnode *node)
-{
-	int i;
-	for(i=0;i<node->current_position;i++)
-		printf("(%ld, %ld)\t", node->tuples[i].key, node->tuples[i].payload);
-}
-
 
 void freeListNode(Listnode *listnode)
 {
@@ -134,6 +121,8 @@ void freeList(List *list)
 		free(tmp);
 	}
 }
+
+//  NA TA DOUME AUTA EINAI POU DIAVAZOYN TA ARXEIA MAS?
 
 
 relation getRelation(relation rel){
@@ -154,9 +143,11 @@ relation getRelationR(relation R)
     char *token;
     char help[100000];
     FILE *df;
-    R.tuples = malloc(sizeof(Tuple) * 1000); //*num_tuples
-    df = fopen("Rdata.txt", "r");
-    fscanf(df ,"%s", help);
+    R.tuples = malloc(sizeof(tuple) * 1000); //*num_tuples
+    df = fopen("../TEST_DATA/Rdata.txt", "r");
+    printf("asd\n");
+    //fscanf(df ,"%s", help);
+    printf("asd1\n");
     token = strtok(help, ",");
     int i = 0; int n = 0;
     while (token != NULL)
@@ -178,9 +169,9 @@ relation getRelationS(relation S)
     char *token;
     char help[10000];
     FILE *df;
-    S.tuples = malloc(sizeof(Tuple) * 1000); //*num_tuples
-    df = fopen("Sdata.txt", "r");
-    fscanf(df ,"%s", help);
+    S.tuples = malloc(sizeof(tuple) * 1000); //*num_tuples
+    df = fopen("../TEST_DATA/Sdata.txt", "r");
+    //fscanf(df ,"%s", help);
     token = strtok(help, ",");
     int i = 0; int n = 0;
     while (token != NULL)
@@ -208,8 +199,18 @@ void printRelation(relation rel)
     printf("\n\n");
 }
 
+int isEqual(relation *relR, relation *relS, int i, int k)
+{
+	return relR->tuples[i].key == relS->tuples[k].key;
+}
 
 
+void printTuples(Listnode *node)
+{
+	int i;
+	for(i=0;i<node->current_position;i++)
+		printf("(%ld, %ld)\t", node->tuples[i].key, node->tuples[i].payload);
+}
 
 
 
