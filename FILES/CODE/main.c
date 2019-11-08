@@ -50,8 +50,8 @@ int main()
 	R = relation_create( R ) ;
 	S = relation_create( S ) ;
 
-	read_file ( R , "/home/parallels/Desktop/Project/An.Log.Pl.Syst.-Project-1/FILES/Datasets/tiny/relA" ) ;
-	read_file ( S , "/home/parallels/Desktop/Project/An.Log.Pl.Syst.-Project-1/FILES/Datasets/tiny/relB" ) ;
+	read_file ( R , "/../Datasets/tiny/relA" ) ;
+	read_file ( S , "/../Datasets/tiny/relB" ) ;
 
 	int r = relation_getnumtuples( R ); //total tuples in r relation
 	
@@ -59,7 +59,7 @@ int main()
 	
 
 
-	rec_sort ( R , 0 , r-1 , 6 ) ; //FIRST WE SORT THE R RELATION
+	rec_sort ( R , 0 , r-1 , 1 ) ; //FIRST WE SORT THE R RELATION
 
 }
 
