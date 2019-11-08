@@ -20,7 +20,7 @@ int main()
 
 	//sort_merge_join () ;
 
-	join(&R, &S, &list);
+	join(R, S, &list);
 	printf("The list created to hold the results contains %d equal relations divided into %d nodes.\n", ((list.tuples_size * --list.counter) + list.tail->current_position), list.counter);
 	printf("Each node contains %d relations\n\n", list.tuples_size);
 

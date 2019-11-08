@@ -26,7 +26,10 @@ typedef struct list
 }List;
 
 
+// Algorithm to Check whether a tuple is equal to another or not and if yes the result is added to a list
 void join(relation *relR, relation *relS,  struct list *list);
+
+
 
 void initlist(List *list, int maxbytes, int record_size);
 
@@ -51,14 +54,6 @@ void join(relation *relR, relation *relS,  struct list *list);
 void printRelation(relation ) ;
 
 int isEqual(relation *, relation *, int , int ) ;
-
-relation getRelation(relation) ;
-
-relation getRelationR(relation) ;
-
-relation getRelationS(relation) ;
-
-
 
 
 #endif
