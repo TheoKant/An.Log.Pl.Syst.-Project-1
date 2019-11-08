@@ -7,6 +7,10 @@
 #include "../HEADERS/main.h"
 
 
+
+
+
+
 int main()
 {
 
@@ -18,17 +22,36 @@ int main()
 	initlist(&list, MAXSIZE, sizeof(tuple));
 
 
-	//sort_merge_join () ;
+	//R.tuples = malloc(sizeof(tuple) * 1000);
+	//S.tuples = malloc(sizeof(tuple) * 1000);
+	//R.num_tuples = 0;
+	//S.num_tuples = 0;
 
-	join(R, S, &list);
+	/*
+	printf("ASD\n" ) ;
+
+	R = getRelationR(R);
+	S = getRelationS(S);
+
+	
+
+	printf("Relation R elements are :\n\n");
+	printRelation(R);
+	printf("Relation S elements are :\n\n");
+	printRelation(S);
+
+	sort_merge_join () ;
+
+	join(&R, &S, &list);
 	printf("The list created to hold the results contains %d equal relations divided into %d nodes.\n", ((list.tuples_size * --list.counter) + list.tail->current_position), list.counter);
 	printf("Each node contains %d relations\n\n", list.tuples_size);
+	*/
 
 	R = relation_create( R ) ;
 	S = relation_create( S ) ;
 
-	read_file ( R , "/home/parallels/Desktop/Project/An.Log.Pl.Syst.-Project-1/FILES/Datasets/tiny/relA" ) ;
-	read_file ( S , "/home/parallels/Desktop/Project/An.Log.Pl.Syst.-Project-1/FILES/Datasets/tiny/relB" ) ;
+	read_file ( R , "/../Datasets/tiny/relA" ) ;
+	read_file ( S , "/../Datasets/tiny/relB" ) ;
 
 	int r = relation_getnumtuples( R ); //total tuples in r relation
 	
@@ -36,11 +59,7 @@ int main()
 	
 
 
-	rec_sort ( R , 0 , r-1 , 6 ) ; //FIRST WE SORT THE R RELATION
-
-	// join(&R, &S, &list);
-	// printf("The list created to hold the results contains %d equal relations divided into %d nodes.\n", ((list.tuples_size * --list.counter) + list.tail->current_position), list.counter);
-	// printf("Each node contains %d relations\n\n", list.tuples_size);
+	rec_sort ( R , 0 , r-1 , 1 ) ; //FIRST WE SORT THE R RELATION
 
 }
 
