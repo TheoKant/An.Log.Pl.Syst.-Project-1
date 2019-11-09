@@ -1,3 +1,5 @@
+F
+
 There was 1 failure:
 1) TestJoin: FILES/CODE/unitest.c:17: expected <1> but was <0>
 

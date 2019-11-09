@@ -7,6 +7,6 @@ CuSuite* EqualUtilGetSuite();
 
 void TestJoin(CuTest *tc);
 
-void RunAllTest(void);
+
 
 #endif

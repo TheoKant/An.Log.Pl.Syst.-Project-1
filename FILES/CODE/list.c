@@ -97,12 +97,19 @@ void join(relation *relR, relation *relS, List *list){
 void printList(List *list)
 {
 	Listnode *tmp = list->head;
+	if(isEmpty(list))
+	{
+		printf("The list doesnt't contain any equal relation, it is Empty\n");
+	}
 	while(tmp != NULL)
 	{
+		printf("\t\t:::::THE RESULT OF SORT_MERGE_JOIN ARE THE RELATIONS BELOW::::\n\n");
 		printTuples(tmp);
 		tmp = tmp->next;
 	}
 	printf("\n\n");
+	printf("The list created to hold the results contains %d equal relations divided into %d nodes.\n", ((list->tuples_size * --list->counter) + list->tail->current_position), list->counter);
+	printf("Each node contains %d relations\n\n", list->tuples_size);
 }
 
 void freeListNode(Listnode *listnode)

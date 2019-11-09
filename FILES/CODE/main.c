@@ -8,9 +8,6 @@
 
 
 
-
-
-
 int main()
 {
 
@@ -25,37 +22,20 @@ int main()
 	R = relation_create( R ) ;
 	S = relation_create( S ) ;
 
-<<<<<<< Updated upstream
-	read_file ( R , "/../Datasets/tiny/relA" ) ;
-	read_file ( S , "/../Datasets/tiny/relB" ) ;
-=======
+
 	read_file ( R , "/mnt/c/users/Γιώργος/Desktop/An.Log.Pl.Syst.-Project-1/FILES/Datasets/tiny/relA" ) ;
 	read_file ( S , "/mnt/c/users/Γιώργος/Desktop/An.Log.Pl.Syst.-Project-1/FILES/Datasets/tiny/relB" ) ;
->>>>>>> Stashed changes
 
 	int r = relation_getnumtuples( R ); //total tuples in r relation
 	
 	int s = relation_getnumtuples( S ); //total tuples in s relation
 	
 
+	//rec_sort ( R , 0 , r-1 , 1 ) ; //FIRST WE SORT THE R RELATION
 
-<<<<<<< Updated upstream
-	rec_sort ( R , 0 , r-1 , 1 ) ; //FIRST WE SORT THE R RELATION
-=======
-	//rec_sort ( R , 0 , r-1 , 6 ) ; //FIRST WE SORT THE R RELATION
-	printf("Relation R IS\n");
-	printRelation(R);
-	printf("Relation S IS\n");
-	printRelation(S);
 	join(R, S, &list);
-	if(isEmpty(&list))
-	{
-		printf("I lista einai adeia\n");
-	}
->>>>>>> Stashed changes
+	printf("For Unity Test Results Check UnityTest.txt!\n\n");
 
-	printf("The list created to hold the results contains %d equal relations divided into %d nodes.\n", ((list.tuples_size * --list.counter) + list.tail->current_position), list.counter);
-	printf("Each node contains %d relations\n\n", list.tuples_size);
 	RunAllTest();
 }
 

@@ -1,8 +1,4 @@
-FILE *fp;
-int myInt = 5;
-fp = fopen("Output.txt", "w");// "w" means that we are going to write on this file
-fprintf(fp, "This is being written in the file. This is an int variable: %d", myInt);
-fclose(fp); //Don't forget to close the file when finished#ifndef CU_TEST_H
+#ifndef CU_TEST_H
 #define CU_TEST_H
 
 #include <setjmp.h>
@@ -43,7 +39,7 @@ void CuStringDelete(CuString* str);
 typedef struct CuTest CuTest;
 
 typedef void (*TestFunction)(CuTest *);
-printf
+
 struct CuTest
 {
 	char* name;
