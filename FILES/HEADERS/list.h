@@ -44,12 +44,12 @@ void freeListNode(Listnode *listnode);
 
 void freeList(List *list);
 
-void printTuples(Listnode *node);
-
 void join(relation *relR, relation *relS,  struct list *list);
 
 void printRelation(relation * ) ;
 
-int isEqual(relation *, relation *, int , int ) ;
+int isEqual(relation *, relation *, int , int );
+
+int getListTotalRel(List *list);
 
 #endif

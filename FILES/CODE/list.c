@@ -97,6 +97,8 @@ void join(relation *relR, relation *relS, List *list){
 void printList(List *list)
 {
 	Listnode *tmp = list->head;
+	FILE *fp;
+	fp = fopen("Join_Results.txt", "w");
 	printf(":::Sort_Merge_Join Completed Succesfully:::");
 
 	if(isEmpty(list))
@@ -105,7 +107,11 @@ void printList(List *list)
 	}
 	while(tmp != NULL)
 	{
-		printTuples(tmp);
+		// printTuples(tmp);
+		for(int i=0;i<tmp->current_position;i++)
+		{
+			fprintf(fp, "(%ld, %ld)\n", tmp->tuples[i].key, tmp->tuples[i].payload);
+		}
 		tmp = tmp->next;
 	}
 	printf("\n\n");
@@ -113,6 +119,18 @@ void printList(List *list)
 	printf("The list created to hold the results contains %d equal relations divided into %d nodes.\n", ((list->tuples_size * --list->counter) + list->tail->current_position), list->counter);
 	printf("Each node contains %d relations\n\n", list->tuples_size);
 	freeList(list);
+}
+
+void printTuples(Listnode *node)
+{
+	int i;
+	FILE *fp;
+	fp = fopen("Join_Results.txt", "w");
+	for(i=0;i<node->current_position;i++)
+	{
+		fprintf(fp, "(%ld, %ld)\n", node->tuples[i].key, node->tuples[i].payload);
+	}
+	fclose(fp);
 }
 
 void freeListNode(Listnode *listnode)
@@ -150,21 +168,10 @@ int isEqual(relation *relR, relation *relS, int i, int k)
 	return relR->tuples[i].key == relS->tuples[k].key;
 }
 
-
-void printTuples(Listnode *node)
+int getListTotalRel(List *list)
 {
-	int i;
-	FILE *fp;
-	fp = fopen("Join_Results.txt", "w");
-	for(i=0;i<node->current_position;i++)
-	{
-		fprintf(fp, "(%ld, %ld)\n", node->tuples[i].key, node->tuples[i].payload);
-	}
-	fclose(fp);
+	return (list->tuples_size * --list->counter) + list->tail->current_position;
 }
-
-
-
 
 
 
