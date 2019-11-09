@@ -97,7 +97,7 @@ void join(relation *relR, relation *relS, List *list){
 void printList(List *list)
 {
 	Listnode *tmp = list->head;
-	printf(":::Sort_Merge_Join Completed Succesfully:::\n\n");
+	printf(":::Sort_Merge_Join Completed Succesfully:::");
 
 	if(isEmpty(list))
 	{
@@ -112,6 +112,7 @@ void printList(List *list)
 	printf("To view the results go to Join_Results.txt!\n\n");
 	printf("The list created to hold the results contains %d equal relations divided into %d nodes.\n", ((list->tuples_size * --list->counter) + list->tail->current_position), list->counter);
 	printf("Each node contains %d relations\n\n", list->tuples_size);
+	freeList(list);
 }
 
 void freeListNode(Listnode *listnode)
@@ -135,7 +136,7 @@ void freeList(List *list)
 
 void printRelation(relation *rel)
 {
-    for (int i=0; i<3; i++)
+    for (int i=0; i<10; i++)
     {
     	printf("%ld\t", rel->tuples[i].key);
         printf("%ld ", rel->tuples[i].payload);
