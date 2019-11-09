@@ -51,3 +51,15 @@ uint64_t relation_getpayload ( relation *this , int tup /*position of tuple that
 int relation_getnumtuples ( relation * this ) {
 	return this->num_tuples ;
 }
+
+int relation_checkifsorted ( relation * this ) {
+	int flag = 0;
+	int total_tuples = relation_getnumtuples ( this ) ;
+	for (int i = 1; i < total_tuples ; i++ ){
+		if ( relation_getkey(this,i) < relation_getkey(this,i-1)) {
+			printf("%ld is smaller than %ld \n",relation_getkey(this,i) , relation_getkey(this,i-1) );
+			flag = 1;
+		}
+	}
+	return flag ;
+}

@@ -50,17 +50,31 @@ int main()
 	R = relation_create( R ) ;
 	S = relation_create( S ) ;
 
-	read_file ( R , "/../Datasets/tiny/relA" ) ;
-	read_file ( S , "/../Datasets/tiny/relB" ) ;
+	read_file ( R , "/home/parallels/Desktop/An.Log.Pl.Syst.-Project-1/FILES/Datasets/medium/relA" ) ;
+	read_file ( S , "/home/parallels/Desktop/An.Log.Pl.Syst.-Project-1/FILES/Datasets/medium/relB" ) ;
 
 	int r = relation_getnumtuples( R ); //total tuples in r relation
 	
 	int s = relation_getnumtuples( S ); //total tuples in s relation
 	
 
+	bucket_sort ( R , 0 , r-1 , 1 ) ; //FIRST WE SORT THE R RELATIOM
+	bucket_sort ( S , 0 , s-1 , 1 ) ; //THEN WE SORT THE S RELATION
+	bucket_sort ( S , 0 , s-1 , 1 ) ;
+	bucket_sort ( S , 0 , s-1 , 1 ) ;
+	
+	
+	if ( relation_checkifsorted (R) ){
+		printf("R NOT SORTED PROPERLY\n");
+		return 0 ;
+	}
 
-	rec_sort ( R , 0 , r-1 , 1 ) ; //FIRST WE SORT THE R RELATION
+	if ( relation_checkifsorted (S) ){
+		printf("S NOT SORTED PROPERLY\n");
+		return 0 ;
+	}
 
+	
 }
 
 void read_file ( relation * rel , char * file_name ) {

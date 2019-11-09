@@ -21,3 +21,5 @@ void relation_setpayload ( relation * , int /*position of tuple that we want to 
 uint64_t relation_getpayload ( relation * , int tup /*position of tuple that we want to get*/) ;
 
 int relation_getnumtuples ( relation * ) ;
+
+int relation_checkifsorted ( relation *  ) ;

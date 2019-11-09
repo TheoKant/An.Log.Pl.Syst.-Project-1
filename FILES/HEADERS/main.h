@@ -7,7 +7,7 @@
 
 
 
-
+void bucket_sort ( relation * , int, int , int ) ;
 
 
 void read_file ( relation *  , char * ) ;

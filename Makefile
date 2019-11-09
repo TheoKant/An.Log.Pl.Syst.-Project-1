@@ -1,5 +1,5 @@
 all: sort_join.o main.o relation.o tuple.o list.o 
-	gcc -o sort_join main.o sort_join.o tuple.o relation.o list.o 
+	gcc -o EXEC/test main.o sort_join.o tuple.o relation.o list.o 
 
 main.o: FILES/CODE/main.c 
 	gcc -c FILES/CODE/main.c
@@ -24,3 +24,4 @@ relation.o: FILES/CODE/relation.c
 
 clean:
 	rm *.o
+	rm /EXEC/test
