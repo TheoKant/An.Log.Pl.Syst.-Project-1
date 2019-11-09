@@ -39,8 +39,6 @@ void RunAllTest(void)
     FILE *fp;
     fp = fopen("UnityTest.txt", "w");
     fprintf(fp, "%s\n", output->buffer);
-    fclose(fp); //Don't forget to close the file when finished
-
- 
+    fclose(fp);
 }
 
