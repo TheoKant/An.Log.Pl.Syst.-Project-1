@@ -52,13 +52,4 @@ void printRelation(relation * ) ;
 
 int isEqual(relation *, relation *, int , int ) ;
 
-relation getRelation(relation ) ;
-
-relation getRelationR(relation ) ;
-
-relation getRelationS(relation) ;
-
-
-
-
 #endif

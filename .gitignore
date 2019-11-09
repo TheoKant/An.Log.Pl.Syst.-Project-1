@@ -4,3 +4,5 @@ EXEC/sort_join
 unitest.o
 unitest.o
 *.o
+list.o
+EXEC/sort_join
