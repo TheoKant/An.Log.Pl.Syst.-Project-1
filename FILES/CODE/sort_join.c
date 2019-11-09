@@ -4,62 +4,89 @@
 #include "../HEADERS/sort_join.h"
 
 
-// Function rec_sort used to sort the array
+// Function bucket_sort used to sort the array
 
-void rec_sort ( relation *rel , int start , int end , int bpos ) {
-	int total_tuples = count_tuples ( start , end ) ;
-	int size = calculate_size( total_tuples ) ;
-
-	if ( size <= 64000 ) {
-		//quicksort
-	}
-	else {
-		//Create hist for the part of the relation we are checking
-		int *hist = malloc ( 256 * sizeof ( int ) ) ; //Hist is size of 2^8 = 256
-		hist = create_hist ( rel , hist , start , end , bpos ) ; //scan the relation and fill the hist
-		
-		//Check which cells of hist aren't 0 so we can determine the size of psum then fill it according to the given hist
-		int psum_size = get_psumsize( hist ); 
-		int **psum = malloc ( psum_size * sizeof ( int * ) ) ;
-		for (int i = 0 ; i < psum_size ; i++ ){
-			psum[i] = malloc (2 * sizeof ( int ) ) ;
+void bucket_sort ( relation *rel , int start , int end , int bpos ) {
+	if ( bpos <= 8 ){
+	/*We check if bpos <=8 for the case when bpos > 8.If bpos >8 that means that all of the keys in the current
+		part are equal.This happens because the keys we are checking are 64 bit sized ,
+		so if bpos >8 that means that we have examined all 8 bytes and that they are equal.
+	*/
+		int total_tuples = count_tuples ( start , end ) ;
+		int size = calculate_size( total_tuples ) ;
+		if ( size <= 64000 ) {
+			quicksort ( rel , start - 1, end ) ;
 		}
-		fill_psum ( psum , hist , psum_size );
+		else {
+			//Create hist for the part of the relation we are checking
+			int *hist = malloc ( 256 * sizeof ( int ) ) ; //Hist is size of 2^8 = 256
+			hist = create_hist ( rel , hist , start , end , bpos ) ; //scan the relation and fill the hist
+			
+			//Check which cells of hist aren't 0 so we can determine the size of psum then fill it according to the given hist
+			int psum_size = get_psumsize( hist ); 
+			int **psum = malloc ( psum_size * sizeof ( int * ) ) ;
+			for (int i = 0 ; i < psum_size ; i++ ){
+				psum[i] = malloc (2 * sizeof ( int ) ) ;
+			}
+			fill_psum ( psum , hist , psum_size );
 
-		//Now rearrange the part that we work in this recursive level with the help of the empty temp relation
-		relation *temp;
-		temp = relation_create ( temp ) ; //Give space
-		rearrange ( rel , temp , start , total_tuples , bpos , psum , psum_size ) ;
+			//Now rearrange the part that we work in this recursive level with the help of the empty temp relation
+			relation *temp;
+			temp = relation_create ( temp ) ; //Give space
 
-		//Free Memory
-		free(temp);
-		free(hist);
-		for ( int i = 0 ; i < psum_size ; i++ ){
-			free(psum[i]);
+			rearrange ( rel , temp , start , end , total_tuples , bpos , psum , psum_size ) ;
+
+			//Now for each part of the relation defined by psum we will cal bucket_sort
+			if (psum_size > 1) {
+
+				int i = 0;
+				int curr_start = start ;
+				int curr_end = start + psum[i+1][1] - 1;
+				bucket_sort ( rel , curr_start , curr_end , bpos + 1 ) ;
+				for ( i = 1 ; i < psum_size - 1 ; i++ ){
+					curr_start = curr_end + 1;
+					curr_end = curr_start + psum[i+1][1] - psum[i][1] - 1;
+					bucket_sort ( rel , curr_start , curr_end , bpos + 1 ) ;
+				} 
+				int t = curr_start;
+				curr_start = curr_end + 1;
+				curr_end = end ;
+				bucket_sort ( rel , curr_start , curr_end , bpos + 1 ) ;
+			}
+			else { 
+				/* This is the case when psum_size is 1.
+				This means that for the current sig byte all tuples are the same so we cant split them in buckets.
+				Also this part didnt fit for the quicksort.
+				So we examinate the same part with the next siginificant byte.
+				*/
+				bucket_sort ( rel , start , end , bpos + 1 ) ;
+			}
+
+			//Free Memory
+			free(temp);
+			free(hist);
+			for ( int k = 0 ; k < psum_size ; k++ ){
+				free(psum[k]);
+			}
+			free(psum);
 		}
-		free(psum);
 	}
-
 }
 
 //Rearrange our relation with help of temp relation
 
-void rearrange ( relation *rel , relation *temp , int start , int total_tuples , int bpos , int **psum , int psum_size ) {
+void rearrange ( relation *rel , relation *temp , int start , int end , int total_tuples , int bpos , int **psum , int psum_size ) {
 	temp = relation_createtuples ( temp , total_tuples ) ; //Create temp's tuples
 	int temp_counter = 0; //We keep a counter so we know where we left it from each psum cell
 	int curr_sigb = 0; //This is the byte that each psum cell has the frequency for
+
+
 	for ( int i = 0 ; i < psum_size ; i++ ) { //Fill temp
 		curr_sigb = psum[i][0];
-		temp_counter = extract_and_add_to_temp ( rel , temp , bpos , temp_counter , curr_sigb ) ;
-	}
-	//Check if temp_counter == total_tuples
-	printf("%d\n",temp_counter);
-	if ( temp_counter != total_tuples ) {
-		printf("ERROR (sort_join.c line 57): temp_counter not equal to total_tuples \n");
+		temp_counter = extract_and_add_to_temp ( rel , temp , start , end , bpos , temp_counter , curr_sigb ) ;
 	}
 	//Now we have temp ready and we copy it to the original relation
 	copy_from_temp ( rel , temp , start , temp_counter ) ;
-
 }
 
 //Copy from our temp relation to our original relation starting from start
@@ -78,10 +105,11 @@ void copy_from_temp ( relation *rel , relation *temp , int start , int temp_coun
 
 //Search our original relation.For each tuple ,if the key matches with byte then add it to temp
 
-int extract_and_add_to_temp ( relation *rel , relation *temp , int bpos , int temp_counter , int byte ){
+int extract_and_add_to_temp ( relation *rel , relation *temp , int start , int end , int bpos , int temp_counter , int byte ){
 	int r_total_tuples = relation_getnumtuples ( rel );
 	uint64_t key,payload;
-	for (int i = 0; i < r_total_tuples ; i++ ){ //Scan original rel's tuples
+
+	for (int i = start; i < end ; i++ ){ //Scan original rel's tuples
 		//Get key
 		key = relation_getkey ( rel , i /*position of tuple that we want to get*/);
 		if ( get_sigbyte ( key , bpos ) == byte ) { //Check if it matches current significant byte
@@ -138,13 +166,16 @@ int *create_hist ( relation *rel , int *hist , int start , int end , int bnum ) 
 	uint64_t key;
 
 	//Set all of hist cells to 0
-	for (int h = start ; h <= 255 ; h++ ) {
+	for (int h = 0 ; h <= 255 ; h++ ) {
 		hist[h] = 0;
 	}
 	//Check all of the relation's tuples' bnum significant byte and add 1 to the matching hist cell
 	for (int i = start ; i <= end ; i++ ) {
 		key = relation_getkey ( rel , i ) ;
 		s_byte = get_sigbyte ( key , bnum ) ;
+		if ( s_byte < 0 || s_byte > 256 ) {
+			printf("ERROR\n");
+		}
 		hist[s_byte]++;
 	}
 	return hist; 
@@ -175,4 +206,49 @@ int count_tuples ( int start , int end ) {
 	*/
 	int total_tuples = end - start + 1 ;
 	return total_tuples;
+}
+
+//Quicksort
+
+void quicksort ( relation *rel , int start , int end ) {
+	if ( start < end ) {
+        int p = partition ( rel, start , end );
+        quicksort( rel , start , p-1 ) ;
+        quicksort( rel , p + 1 , end ) ;
+    }
+}
+
+//Partition
+
+int partition ( relation *rel , int start , int end ) {
+
+    uint64_t pivot = relation_getkey ( rel , end ) ;  
+ 
+    int i = ( start - 1) ;
+    for ( int j = start ; j <= end- 1; j++){
+        // If current element is smaller than the pivot
+        if ( relation_getkey ( rel , j ) < pivot ){
+            i++;
+            swap_rel_tuples ( rel , i , j ) ;
+        }
+    }
+    swap_rel_tuples ( rel , (i + 1) , end ) ;
+    return (i + 1) ;
+}
+
+//Swap tuples in a relationship of the given position
+
+void swap_rel_tuples ( relation *rel , int i , int j ) {
+	//Keep j values temp
+    uint64_t temp_key = relation_getkey ( rel , j ) ;
+    uint64_t temp_payload = relation_getpayload ( rel , j ) ;
+    //Get i values
+    uint64_t i_key = relation_getkey ( rel , i ) ;
+    uint64_t i_payload = relation_getpayload ( rel , i ) ;
+    //Set i-values to j
+    relation_setkey ( rel , j , i_key ) ;
+    relation_setpayload ( rel , j , i_payload ) ;
+    //Set temp values to i
+    relation_setkey ( rel , i , temp_key ) ;
+    relation_setpayload ( rel , i , temp_payload ) ;
 }

@@ -3,13 +3,13 @@
 
 
 
-// Function rec_sort used to sort the array
+// Function bucket_sort used to sort the array
 
-void rec_sort ( relation * /*relation*/ , int /*start*/ , int /*end*/ , int /*significant byte no*/ ) ;
+void bucket_sort ( relation * /*relation*/ , int /*start*/ , int /*end*/ , int /*significant byte no*/ ) ;
 
 //Rearrange our relation with help of temp relation
 
-void rearrange ( relation * /*original relation*/ , relation * /*temp relation*/ , int /*start*/ , int /*total_tuples*/ , int /*current sig byte position*/ , int ** /* psum */ , int /*psum size*/) ;
+void rearrange ( relation * /*original relation*/ , relation * /*temp relation*/ , int /*start*/ , int /*endbucket_sort*/ , int /*total_tuples*/ , int /*current sig byte position*/ , int ** /* psum */ , int /*psum size*/) ;
 
 //Copy from our temp relation to our original relation starting from start
 
@@ -17,7 +17,7 @@ void copy_from_temp ( relation * , relation * , int , int ) ;
 
 //Search our original relation.For each tuple ,if the key matches with byte then add it to temp.returns temp_counter
 
-int extract_and_add_to_temp ( relation * , relation * , int /*current temp_counter*/ , int /*current sig byte position*/ , int ) ;
+int extract_and_add_to_temp ( relation * , relation * , int /*start*/ , int /*end*/ , int /*current temp_counter*/ , int /*current sig byte position*/ , int ) ;
 
 //Calculate size (bytes) of sub-relation
 
@@ -46,3 +46,16 @@ void fill_psum ( int ** , int * , int ) ;
 //Count total tuples
 
 int count_tuples ( int , int ) ;
+
+//Quicksort
+
+void quicksort ( relation * , int  , int  ) ;
+
+//Partition
+
+int partition ( relation * , int  , int  ) ;
+
+//Swap tuples in a relationship of the given position
+
+void swap_rel_tuples ( relation * , int , int ) ;
+
