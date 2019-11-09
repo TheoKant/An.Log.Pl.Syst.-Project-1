@@ -1,5 +1,5 @@
-all: sort_join.o main.o relation.o tuple.o list.o 
-	gcc -o EXEC/test main.o sort_join.o tuple.o relation.o list.o 
+all: sort_join.o main.o relation.o tuple.o list.o CuTest.o unitest.o
+	gcc -o EXEC/test main.o sort_join.o tuple.o relation.o list.o CuTest.o unitest.o
 
 main.o: FILES/CODE/main.c 
 	gcc -c FILES/CODE/main.c
@@ -16,12 +16,13 @@ tuple.o: FILES/CODE/tuple.c
 relation.o: FILES/CODE/relation.c
 	gcc -c FILES/CODE/relation.c
 	
-# unitest.o: FILES/CODE/unitest.c
-# 	gcc -c FILES/CODE/unitest.c
+unitest.o: FILES/CODE/unitest.c
+	gcc -c FILES/CODE/unitest.c
 
-# CuTest.o: FILES/CODE/CuTest.c
-# 	gcc -c FILES/CODE/CuTest.c
+CuTest.o: FILES/CODE/CuTest.c
+	gcc -c FILES/CODE/CuTest.c
 
 clean:
 	rm *.o
 	rm /EXEC/test
+

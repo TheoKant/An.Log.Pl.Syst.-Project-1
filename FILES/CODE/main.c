@@ -1,13 +1,9 @@
-
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
 
 
 #include "../HEADERS/main.h"
-
-
-
 
 
 
@@ -22,34 +18,12 @@ int main()
 	initlist(&list, MAXSIZE, sizeof(tuple));
 
 
-	//R.tuples = malloc(sizeof(tuple) * 1000);
-	//S.tuples = malloc(sizeof(tuple) * 1000);
-	//R.num_tuples = 0;
-	//S.num_tuples = 0;
-
-	/*
-	printf("ASD\n" ) ;
-
-	R = getRelationR(R);
-	S = getRelationS(S);
-
-	
-
-	printf("Relation R elements are :\n\n");
-	printRelation(R);
-	printf("Relation S elements are :\n\n");
-	printRelation(S);
-
-	sort_merge_join () ;
-
-	join(&R, &S, &list);
-	printf("The list created to hold the results contains %d equal relations divided into %d nodes.\n", ((list.tuples_size * --list.counter) + list.tail->current_position), list.counter);
-	printf("Each node contains %d relations\n\n", list.tuples_size);
-	*/
-
 	R = relation_create( R ) ;
 	S = relation_create( S ) ;
 
+
+	// read_file ( R , "/mnt/c/users/Γιώργος/Desktop/An.Log.Pl.Syst.-Project-1/FILES/Datasets/tiny/relA" ) ;
+	// read_file ( S , "/mnt/c/users/Γιώργος/Desktop/An.Log.Pl.Syst.-Project-1/FILES/Datasets/tiny/relB" ) ;
 	read_file ( R , "/home/parallels/Desktop/An.Log.Pl.Syst.-Project-1/FILES/Datasets/medium/relA" ) ;
 	read_file ( S , "/home/parallels/Desktop/An.Log.Pl.Syst.-Project-1/FILES/Datasets/medium/relB" ) ;
 
@@ -63,18 +37,11 @@ int main()
 	bucket_sort ( S , 0 , s-1 , 1 ) ;
 	bucket_sort ( S , 0 , s-1 , 1 ) ;
 	
-	
-	if ( relation_checkifsorted (R) ){
-		printf("R NOT SORTED PROPERLY\n");
-		return 0 ;
-	}
 
-	if ( relation_checkifsorted (S) ){
-		printf("S NOT SORTED PROPERLY\n");
-		return 0 ;
-	}
+	join(R, S, &list);
+	printf("For Unity Test Results Check UnityTest.txt!\n\n");
 
-	
+	RunAllTest();
 }
 
 void read_file ( relation * rel , char * file_name ) {
