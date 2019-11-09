@@ -65,9 +65,9 @@ void join(relation *relR, relation *relS, List *list){
 	int i, k = 0;
 	int prevk = 0;
 
-	for(i = 0; i<relR->num_tuples; i++) //i<relR->num_tuples
+	for(i = 0; i<relR->num_tuples; i++) 
 	{
-		if (i > 0 && relR->tuples[i].key == relR->tuples[i-1].key)
+		if (i > 0 && isEqual(relR, relS, i, i-1))
 		{
 			k = prevk;
 		}else{
@@ -124,77 +124,13 @@ void freeList(List *list)
 
 //  NA TA DOUME AUTA EINAI POU DIAVAZOYN TA ARXEIA MAS?
 
-
-relation getRelation(relation rel){
-	uint64_t r = 0;
-	for (int i=0; i<10; i++)
-	{
-		r = r*2 + rand()%2;
-		rel.tuples[i].key = r;
-		rel.tuples[i].payload = i;
-		rel.num_tuples++;
-	}
-	return rel;
-}
-
-relation getRelationR(relation R)
+void printRelation(relation *rel)
 {
-	int rowid = 0;
-    char *token;
-    char help[100000];
-    FILE *df;
-    R.tuples = malloc(sizeof(tuple) * 1000); //*num_tuples
-    df = fopen("../TEST_DATA/Rdata.txt", "r");
-    printf("asd\n");
-    //fscanf(df ,"%s", help);
-    printf("asd1\n");
-    token = strtok(help, ",");
-    int i = 0; int n = 0;
-    while (token != NULL)
-    { 
-        R.tuples[i].key = atoi(token);
-        R.tuples[i].payload = rowid;
-        token = strtok (NULL, ",");
-        i++;
-        rowid++;
-        R.num_tuples++;
-    }
-    n = i;
-    return R;
-}
-
-relation getRelationS(relation S)
-{
-	int rowid = 0;
-    char *token;
-    char help[10000];
-    FILE *df;
-    S.tuples = malloc(sizeof(tuple) * 1000); //*num_tuples
-    df = fopen("../TEST_DATA/Sdata.txt", "r");
-    //fscanf(df ,"%s", help);
-    token = strtok(help, ",");
-    int i = 0; int n = 0;
-    while (token != NULL)
-    { 
-        S.tuples[i].key = atoi(token); 
-        S.tuples[i].payload = rowid;
-        token = strtok (NULL, " , ");
-        i++;
-        rowid++;
-        S.num_tuples++;
-    }
-    n = i;
-    return S;
-
-} 
-
-void printRelation(relation rel)
-{
-    for (int i=0; i<rel.num_tuples; i++)
+    for (int i=0; i<3; i++)
     {
-
-        printf("%ld ", rel.tuples[i].payload);
-        printf("%ld\t", rel.tuples[i].key);
+    	printf("%ld\t", rel->tuples[i].key);
+        printf("%ld ", rel->tuples[i].payload);
+        printf("\n");
     }
     printf("\n\n");
 }
@@ -214,6 +150,71 @@ void printTuples(Listnode *node)
 
 
 
+
+
+
+// relation getRelation(relation rel){
+// 	uint64_t r = 0;
+// 	for (int i=0; i<10; i++)
+// 	{
+// 		r = r*2 + rand()%2;
+// 		rel.tuples[i].key = r;
+// 		rel.tuples[i].payload = i;
+// 		rel.num_tuples++;
+// 	}
+// 	return rel;
+// }
+
+// relation getRelationR(relation R)
+// {
+// 	int rowid = 0;
+//     char *token;
+//     char help[100000];
+//     FILE *df;
+//     R.tuples = malloc(sizeof(tuple) * 1000); //*num_tuples
+//     df = fopen("../TEST_DATA/Rdata.txt", "r");
+//     printf("asd\n");
+//     //fscanf(df ,"%s", help);
+//     printf("asd1\n");
+//     token = strtok(help, ",");
+//     int i = 0; int n = 0;
+//     while (token != NULL)
+//     { 
+//         R.tuples[i].key = atoi(token);
+//         R.tuples[i].payload = rowid;
+//         token = strtok (NULL, ",");
+//         i++;
+//         rowid++;
+//         R.num_tuples++;
+//     }
+//     n = i;
+//     return R;
+// }
+
+// relation getRelationS(relation S)
+// {
+// 	int rowid = 0;
+//     char *token;
+//     char help[10000];
+//     FILE *df;
+//     S.tuples = malloc(sizeof(tuple) * 1000); //*num_tuples
+//     df = fopen("../TEST_DATA/Sdata.txt", "r");
+//     //fscanf(df ,"%s", help);
+//     token = strtok(help, ",");
+//     int i = 0; int n = 0;
+//     while (token != NULL)
+//     { 
+//         S.tuples[i].key = atoi(token); 
+//         S.tuples[i].payload = rowid;
+//         token = strtok (NULL, " , ");
+//         i++;
+//         rowid++;
+//         S.num_tuples++;
+//     }
+//     n = i;
+//     return S;
+
+// } 
 
 
 

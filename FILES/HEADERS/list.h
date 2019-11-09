@@ -8,7 +8,7 @@
 
 #include "../HEADERS/relation.h"
 
-#define MAXSIZE 200//1048576
+#define MAXSIZE 1048576
 
 typedef struct ln
 {
@@ -48,7 +48,7 @@ void printTuples(Listnode *node);
 
 void join(relation *relR, relation *relS,  struct list *list);
 
-void printRelation(relation ) ;
+void printRelation(relation * ) ;
 
 int isEqual(relation *, relation *, int , int ) ;
 

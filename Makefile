@@ -1,5 +1,10 @@
+<<<<<<< Updated upstream
 all: sort_join.o main.o relation.o tuple.o list.o 
 	gcc -o sort_join main.o sort_join.o tuple.o relation.o list.o 
+=======
+all: sort_join.o main.o relation.o tuple.o list.o CuTest.o unitest.o
+	gcc -o EXEC/sort_join main.o sort_join.o tuple.o relation.o list.o CuTest.o unitest.o
+>>>>>>> Stashed changes
 
 main.o: FILES/CODE/main.c 
 	gcc -c FILES/CODE/main.c
@@ -21,6 +26,12 @@ relation.o: FILES/CODE/relation.c
 
 # CuTest.o: FILES/CODE/CuTest.c
 # 	gcc -c FILES/CODE/CuTest.c
+
+CuTest.o: FILES/CODE/CuTest.c
+	gcc -c FILES/CODE/CuTest.c
+
+unitest.o: FILES/CODE/unitest.c
+	gcc -c FILES/CODE/unitest.c
 
 clean:
 	rm *.o
