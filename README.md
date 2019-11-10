@@ -21,7 +21,7 @@ make
 ```bash
 valgrind --leak-check=full  --show-leak-kinds=all  --track-origins=yes  --verbose  --log-file=valgrind-out.txt  ./EXEC/test     
 ```
-Τα αποτελέσματα του valgrind εκτυπώνονται στο αρχείο valgrind-out.txt
+Τα αποτελέσματα του valgrind εκτυπώνονται στο αρχείο valgrind-out.txt. Όταν τRεχουμε το πρόγραμμα με σχολιασμένη τη συνάρτηση RunAllTest() της βιβλιοθήκης CuTest.h το πρόγραμμά μας δεν εμφανίζει κανένα memory lick. Όταν το τρέχουμε αποσχολιάζοντας τη εμφανίζονται memory lick για το οποία όμως δεν ευθυνόμαστε.
 
 
 ### Περιγραφή λειτουργικότητας
