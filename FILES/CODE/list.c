@@ -7,7 +7,6 @@ Listnode* initListNode(List *list)
 	new_node->tuples = malloc(sizeof(tuple) * list->tuples_size);
 	new_node->current_position = 0;
 	new_node->next = NULL;
-	freeListNode(new_node);
 	return new_node;
 }
 
@@ -49,8 +48,8 @@ void insertElement(List *list, tuple tuple1, tuple tuple2)
 	{
 		insertNewNode(list);
 	}
-	list->tail->tuples[list->tail->current_position].key = tuple1.key;
-	list->tail->tuples[list->tail->current_position].payload = tuple2.key;
+	list->tail->tuples[list->tail->current_position].key = tuple1.payload;
+	list->tail->tuples[list->tail->current_position].payload = tuple2.payload;
 	list->tail->current_position++;
 
 }
@@ -104,9 +103,6 @@ void printList(List *list)
 	/*
 	while(tmp != NULL)
 	{
-
-		for(int i=0;i<tmp->current_position;i++)
-
 		// printTuples(tmp);
 		
 		/*for(int i=0;i<tmp->current_position;i++)
@@ -122,8 +118,6 @@ void printList(List *list)
 	printf("Each node contains %d relations\n\n", list->tuples_size);
 	freeList(list);
 }
-
-
 
 void printTuples(Listnode *node)
 {
@@ -153,6 +147,8 @@ void freeList(List *list)
 		free(tmp);
 	}
 }
+
+//  NA TA DOUME AUTA EINAI POU DIAVAZOYN TA ARXEIA MAS?
 
 void printRelation(relation *rel)
 {

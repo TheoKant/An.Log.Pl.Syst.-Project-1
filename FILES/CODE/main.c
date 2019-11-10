@@ -35,9 +35,9 @@ int main()
 	
 	int s = relation_getnumtuples( S ); //total tuples in s relation
 	
+
 	bucket_sort ( R , 0 , r-1 , 1 ) ; //FIRST WE SORT THE R RELATIOM
 	bucket_sort ( S , 0 , s-1 , 1 ) ; //THEN WE SORT THE S RELATION
-
 
 	
 	relation_checkifsorted ( R ) ;
