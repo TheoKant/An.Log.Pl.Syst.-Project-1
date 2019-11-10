@@ -58,7 +58,7 @@ CuSuite* EqualUtilGetSuite()
 }
 
 
-void RunAllTest(void)
+void RunAllTest()
 {
 	CuString *output = CuStringNew();
     CuSuite* suite = CuSuiteNew();

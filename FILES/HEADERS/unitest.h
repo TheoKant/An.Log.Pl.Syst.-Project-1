@@ -11,6 +11,6 @@ void TestSort(CuTest *tc);
 
 void CheckRelTuples(CuTest *tc);
 
-void RunAllTest(void);
+void RunAllTest();
 
 #endif
