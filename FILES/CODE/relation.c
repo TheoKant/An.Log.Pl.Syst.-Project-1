@@ -19,15 +19,15 @@ relation * relation_createtuples ( relation *this , int num /* number of tuples 
 }
 
 
-void relation_setkey( relation *this , int tup /*position of tuple that we want to set*/ , uint64_t key /*key we want to set*/ ) {
+void relation_setkey( relation *this , int tup /*position of tuple that we want to set*/ , unsigned long long key /*key we want to set*/ ) {
 	
 	tuple_setkey ( &this->tuples[tup] , key );
 
 }
 
-uint64_t relation_getkey ( relation *this , int tup /*position of tuple that we want to get*/) {
+unsigned long long relation_getkey ( relation *this , int tup /*position of tuple that we want to get*/) {
 	
-	uint64_t key = tuple_getkey ( &this->tuples[tup] );
+	unsigned long long key = tuple_getkey ( &this->tuples[tup] );
 	return key;
 
 }
@@ -35,15 +35,15 @@ uint64_t relation_getkey ( relation *this , int tup /*position of tuple that we 
 
 
 
-void relation_setpayload ( relation *this , int tup /*position of tuple that we want to set*/ , uint64_t payl /*payload we want to set*/ ) {
+void relation_setpayload ( relation *this , int tup /*position of tuple that we want to set*/ , unsigned long long payl /*payload we want to set*/ ) {
 	
 	tuple_setpayload ( &this->tuples[tup] , payl );
 
 }
 
-uint64_t relation_getpayload ( relation *this , int tup /*position of tuple that we want to get*/) {
+unsigned long long relation_getpayload ( relation *this , int tup /*position of tuple that we want to get*/) {
 	
-	uint64_t payl = tuple_getpayload ( &this->tuples[tup] );
+	unsigned long long payl = tuple_getpayload ( &this->tuples[tup] );
 	return payl;
 
 }
@@ -57,7 +57,7 @@ int relation_checkifsorted ( relation * this ) {
 	int total_tuples = relation_getnumtuples ( this ) ;
 	for (int i = 1; i < total_tuples ; i++ ){
 		if ( relation_getkey(this,i) < relation_getkey(this,i-1)) {
-			printf("%ld is smaller than %ld \n",relation_getkey(this,i) , relation_getkey(this,i-1) );
+			printf("%llu is smaller than %llu \n",relation_getkey(this,i) , relation_getkey(this,i-1) );
 			flag = 1;
 		}
 	}
@@ -67,7 +67,7 @@ int relation_checkifsorted ( relation * this ) {
 void relation_print ( relation *rel ) {
 	int total_tuples = relation_getnumtuples ( rel ) ;
 	for (int i = 0; i < total_tuples ; i++ ) {
-		printf ( "KEY IS %ld PAYLOAD IS %ld \n" , relation_getkey ( rel , i ) , relation_getpayload ( rel , i ) ) ;
+		printf ( "KEY IS %llu PAYLOAD IS %llu \n" , relation_getkey ( rel , i ) , relation_getpayload ( rel , i ) ) ;
 	}
 }
 

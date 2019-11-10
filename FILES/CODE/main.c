@@ -15,7 +15,7 @@ int main()
 	relation *R;
 	relation *S;
 
-	//initlist(&list, MAXSIZE, sizeof(tuple));
+	initlist(&list, MAXSIZE, sizeof(tuple));
 
 
 	R = relation_create( R ) ;
@@ -27,6 +27,9 @@ int main()
 
 	read_file ( R , "/home/parallels/Desktop/An.Log.Pl.Syst.-Project-1/FILES/Datasets/tiny/relA" ) ;
 	read_file ( S , "/home/parallels/Desktop/An.Log.Pl.Syst.-Project-1/FILES/Datasets/tiny/relB" ) ;
+
+	relation_print ( R ) ;
+
 
 	int r = relation_getnumtuples( R ); //total tuples in r relation
 	
@@ -42,7 +45,7 @@ int main()
 
 
 
-	//join(R, S, &list);
+	join(R, S, &list);
 	printf("For Unity Test Results Check UnityTest.txt!\n\n");
 
 	//RunAllTest();
@@ -134,23 +137,14 @@ void extract_line ( relation * rel , char * line , int tup_num ) {
 	key_string = strtok ( line , " ," ) ;
 
 	//SET THE KEY TO TUPLE NUMBER tup_num
-	uint64_t key = strtoll(key_string, NULL, 10);
+	unsigned long long key = strtoll(key_string, NULL, 10);
 	relation_setkey( rel , tup_num , key ) ;
-
-	//uint64_t test = relation_getkey(rel,tup_num);
-	//printf("ORIGINAL %ld\nTEST " , key);
-	//printf("%ld\n\n",test);
-
 
 	//THEN EXTRACT THE PAYLOAD
 	payload_string = strtok ( NULL , " ,\n" ) ;
 
 	//SET THE PAYLOAD
-	uint64_t payload = strtoll ( payload_string, NULL, 10 );
+	unsigned long long payload = strtoll ( payload_string, NULL, 10 );
 	relation_setpayload ( rel , tup_num , payload ) ;
-
-	//uint64_t test2 = relation_getpayload(rel,tup_num);
-	//printf("ORIGINAL payload %ld\nTEST " , payload);
-	//printf("%ld\n\n",test2);
 
 }

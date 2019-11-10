@@ -33,7 +33,7 @@ void print_array ( int ** /*array*/ , int /*size of array*/ ) ;
 
 //Returns i significant byte of the key
 
-uint64_t get_sigbyte ( uint64_t , int ) ;
+unsigned long long get_sigbyte ( unsigned long long , int ) ;
 
 //Returns requiered size for the psum
 

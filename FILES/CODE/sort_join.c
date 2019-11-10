@@ -95,8 +95,8 @@ void rearrange ( relation *rel , relation *temp , int start , int end , int tota
 void copy_from_temp ( relation *rel , relation *temp , int start , int temp_counter ) {
 	int copy_counter = 0 ;
 	for (int i = start ; i < start + temp_counter ; i++ ){
-		uint64_t key = relation_getkey( temp , copy_counter );
-		uint64_t payload = relation_getpayload( temp , copy_counter );
+		unsigned long long key = relation_getkey( temp , copy_counter );
+		unsigned long long payload = relation_getpayload( temp , copy_counter );
 		//Now copy to rel
 		relation_setkey ( rel , i , key );
 		relation_setpayload ( rel , i , payload );
@@ -108,7 +108,7 @@ void copy_from_temp ( relation *rel , relation *temp , int start , int temp_coun
 
 int extract_and_add_to_temp ( relation *rel , relation *temp , int start , int end , int bpos , int temp_counter , int byte ){
 	int r_total_tuples = relation_getnumtuples ( rel );
-	uint64_t key,payload;
+	unsigned long long key,payload;
 
 	for (int i = start; i < end + 1; i++ ){ //Scan original rel's tuples
 		//Get key
@@ -162,8 +162,8 @@ int get_psumsize ( int *hist ) {
 //Create Hist
 
 int *create_hist ( relation *rel , int *hist , int start , int end , int bnum ) {
-	uint64_t s_byte;
-	uint64_t key;
+	unsigned long long s_byte;
+	unsigned long long key;
 
 	//Set all of hist cells to 0
 	for (int h = 0 ; h <= 255 ; h++ ) {
@@ -180,8 +180,8 @@ int *create_hist ( relation *rel , int *hist , int start , int end , int bnum ) 
 
 //Returns i significant byte of the key
 
-uint64_t get_sigbyte ( uint64_t key , int i ) {
-	uint64_t s_byte = key << ( i - 1 ) * 8 ;
+unsigned long long get_sigbyte ( unsigned long long key , int i ) {
+	unsigned long long s_byte = key << ( i - 1 ) * 8 ;
 	s_byte = s_byte >> 7 * 8 ;
 	return s_byte;
 }
@@ -219,7 +219,7 @@ void quicksort ( relation *rel , int start , int end ) {
 
 int partition ( relation *rel , int start , int end ) {
 
-    uint64_t pivot = relation_getkey ( rel , end ) ;  
+    unsigned long long pivot = relation_getkey ( rel , end ) ;  
  
     int i = ( start - 1) ;
     for ( int j = start ; j <= end- 1; j++){
@@ -237,11 +237,11 @@ int partition ( relation *rel , int start , int end ) {
 
 void swap_rel_tuples ( relation *rel , int i , int j ) {
 	//Keep j values temp
-    uint64_t temp_key = relation_getkey ( rel , j ) ;
-    uint64_t temp_payload = relation_getpayload ( rel , j ) ;
+    unsigned long long temp_key = relation_getkey ( rel , j ) ;
+    unsigned long long temp_payload = relation_getpayload ( rel , j ) ;
     //Get i values
-    uint64_t i_key = relation_getkey ( rel , i ) ;
-    uint64_t i_payload = relation_getpayload ( rel , i ) ;
+    unsigned long long i_key = relation_getkey ( rel , i ) ;
+    unsigned long long i_payload = relation_getpayload ( rel , i ) ;
     //Set i-values to j
     relation_setkey ( rel , j , i_key ) ;
     relation_setpayload ( rel , j , i_payload ) ;
