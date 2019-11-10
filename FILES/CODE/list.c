@@ -7,6 +7,7 @@ Listnode* initListNode(List *list)
 	new_node->tuples = malloc(sizeof(tuple) * list->tuples_size);
 	new_node->current_position = 0;
 	new_node->next = NULL;
+	freeListNode(new_node);
 	return new_node;
 }
 
@@ -54,8 +55,8 @@ void insertElement(List *list, tuple tuple1, tuple tuple2)
 	{
 		insertNewNode(list);
 	}
-	list->tail->tuples[list->tail->current_position].key = tuple1.payload;
-	list->tail->tuples[list->tail->current_position].payload = tuple2.payload;
+	list->tail->tuples[list->tail->current_position].key = tuple1.key;
+	list->tail->tuples[list->tail->current_position].payload = tuple2.key;
 	list->tail->current_position++;
 
 }
@@ -107,7 +108,6 @@ void printList(List *list)
 	}
 	while(tmp != NULL)
 	{
-		// printTuples(tmp);
 		for(int i=0;i<tmp->current_position;i++)
 		{
 			fprintf(fp, "(%ld, %ld)\n", tmp->tuples[i].key, tmp->tuples[i].payload);
@@ -121,17 +121,6 @@ void printList(List *list)
 	freeList(list);
 }
 
-void printTuples(Listnode *node)
-{
-	int i;
-	FILE *fp;
-	fp = fopen("Join_Results.txt", "w");
-	for(i=0;i<node->current_position;i++)
-	{
-		fprintf(fp, "(%ld, %ld)\n", node->tuples[i].key, node->tuples[i].payload);
-	}
-	fclose(fp);
-}
 
 void freeListNode(Listnode *listnode)
 {
@@ -149,8 +138,6 @@ void freeList(List *list)
 		free(tmp);
 	}
 }
-
-//  NA TA DOUME AUTA EINAI POU DIAVAZOYN TA ARXEIA MAS?
 
 void printRelation(relation *rel)
 {

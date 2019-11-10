@@ -30,10 +30,10 @@ int main()
 	int s = relation_getnumtuples( S ); //total tuples in s relation
 	
 
-	bucket_sort ( R , 0 , r-1 , 1 ) ; //FIRST WE SORT THE R RELATIOM
-	bucket_sort ( S , 0 , s-1 , 1 ) ; //THEN WE SORT THE S RELATION
-	bucket_sort ( S , 0 , s-1 , 1 ) ;
-	bucket_sort ( S , 0 , s-1 , 1 ) ;
+	// bucket_sort ( R , 0 , r-1 , 1 ) ; //FIRST WE SORT THE R RELATIOM
+	// bucket_sort ( S , 0 , s-1 , 1 ) ; //THEN WE SORT THE S RELATION
+	// bucket_sort ( S , 0 , s-1 , 1 ) ;
+	// bucket_sort ( S , 0 , s-1 , 1 ) ;
 	
 	join(R, S, &list);
 	printf("For Unity Test Results Check UnityTest.txt!\n\n");
