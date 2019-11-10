@@ -22,11 +22,11 @@ int main()
 	S = relation_create( S ) ;
 
 
-	read_file ( R , "/mnt/c/users/Γιώργος/Desktop/An.Log.Pl.Syst.-Project-1/FILES/Datasets/tiny/relA" ) ;
-	read_file ( S , "/mnt/c/users/Γιώργος/Desktop/An.Log.Pl.Syst.-Project-1/FILES/Datasets/tiny/relB" ) ;
+	// read_file ( R , "/mnt/c/users/Γιώργος/Desktop/An.Log.Pl.Syst.-Project-1/FILES/Datasets/tiny/relA" ) ;
+	// read_file ( S , "/mnt/c/users/Γιώργος/Desktop/An.Log.Pl.Syst.-Project-1/FILES/Datasets/tiny/relB" ) ;
 
-	// read_file ( R , "/home/parallels/Desktop/An.Log.Pl.Syst.-Project-1/FILES/Datasets/tiny/relA" ) ;
-	// read_file ( S , "/home/parallels/Desktop/An.Log.Pl.Syst.-Project-1/FILES/Datasets/tiny/relB" ) ;
+	read_file ( R , "/home/parallels/Desktop/An.Log.Pl.Syst.-Project-1/FILES/Datasets/tiny/relA" ) ;
+	read_file ( S , "/home/parallels/Desktop/An.Log.Pl.Syst.-Project-1/FILES/Datasets/tiny/relB" ) ;
 
 
 	int r = relation_getnumtuples( R ); //total tuples in r relation
