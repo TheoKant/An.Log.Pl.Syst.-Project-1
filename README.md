@@ -13,13 +13,13 @@ make
 #### Εκτέλεση
 
 ```bash
-./EXEC/sort_join
+./sort_join
 ```
 
 #### Eκτέλεση με valgrind
 
 ```bash
-valgrind --leak-check=full  --show-leak-kinds=all  --track-origins=yes  --verbose  --log-file=valgrind-out.txt  ./EXEC/test     
+valgrind --leak-check=full  --show-leak-kinds=all  --track-origins=yes  --verbose  --log-file=valgrind-out.txt  ./sort_join     
 ```
 Τα αποτελέσματα του valgrind εκτυπώνονται στο αρχείο valgrind-out.txt. Όταν τRεχουμε το πρόγραμμα με σχολιασμένη τη συνάρτηση RunAllTest() της βιβλιοθήκης CuTest.h το πρόγραμμά μας δεν εμφανίζει κανένα memory lick. Όταν το τρέχουμε αποσχολιάζοντας τη εμφανίζονται memory lick για το οποία όμως δεν ευθυνόμαστε.
 
@@ -35,7 +35,7 @@ valgrind --leak-check=full  --show-leak-kinds=all  --track-origins=yes  --verbos
 
 * Στη συνέχεια καλούμε την αναδρομική συνάρτηση bucket_sort που δουλεύει ως εξής:
 
-
+Η συνάρτηση είναι αναδρομική.Σε κάθε επίπεδο της αναδρομής δίνουμε το διάστημ της σχέσης το οποίο μας ενδιαφέρει αλλά και την θέση του significant byte που μας ενδιαφέρει.Έπειτα φτίαχνει το ιστόγραμμα και το psum.Τέλος, βάσει του psum καλεί τον εαυτό της με τα διαστήματα που ορίζονται από την psum και με significant byte + 1.Αν στο διάστημα που δοθεί τα tuples είναι μεγέθους μικρότερου από 64kb ,καλούμε quicksort στο δοσμένο διάστημα.
 
 
 
