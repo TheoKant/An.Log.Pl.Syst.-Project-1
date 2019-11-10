@@ -18,5 +18,4 @@ void tuple_setkey ( tuple *this , uint64_t k ) {
 
 void tuple_setpayload ( tuple *this , uint64_t p ) {
 	this->payload = p;
-}
-
+};
