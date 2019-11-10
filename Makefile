@@ -1,6 +1,6 @@
 
 all: sort_join.o main.o relation.o tuple.o list.o CuTest.o unitest.o
-	gcc -o EXEC/test main.o sort_join.o tuple.o relation.o list.o CuTest.o unitest.o
+	gcc -o EXEC/sort_join main.o sort_join.o tuple.o relation.o list.o CuTest.o unitest.o
 
 main.o: FILES/CODE/main.c 
 	gcc -c -g FILES/CODE/main.c
@@ -25,7 +25,7 @@ CuTest.o: FILES/CODE/CuTest.c
 
 clean:
 	rm *.o
-	rm EXEC/test
+	rm EXEC/sort_join
 	rm UnityTest.txt
 	rm Join_Results.txt
 

@@ -99,21 +99,21 @@ void printList(List *list)
 	{
 		printf("The list doesnt't contain any equal relation, it is Empty\n");
 	}
-	//REMOVE COMMENTS IF YOU WANT TO PRINT IN FILE
-	/*
-	while(tmp != NULL)
-	{
-		// printTuples(tmp);
+	// //REMOVE COMMENTS IF YOU WANT TO PRINT IN FILE
+
+	// while(tmp != NULL)
+	// {
+	// 	// printTuples(tmp);
 		
-		/*for(int i=0;i<tmp->current_position;i++)
-		{
-			fprintf(fp, "(%llu, %llu)\n", tmp->tuples[i].key, tmp->tuples[i].payload);
-		}
-		tmp = tmp->next;
-	}
-	*/
+	// 	for(int i=0;i<tmp->current_position;i++)
+	// 	{
+	// 		fprintf(fp, "(%llu, %llu)\n", tmp->tuples[i].key, tmp->tuples[i].payload);
+	// 	}
+	// 	tmp = tmp->next;
+	// }
+	
 	printf("\n\n");
-	printf("To view the results remove comments from  printList in list.c and go to Join_Results.txt!\n\n");
+	printf("To view the results remove comments from  printList in list.c in line 103 and open Join_Results.txt!\n\n");
 	printf("The list created to hold the results contains %d equal relations divided into %d nodes.\n", ((list->tuples_size * --list->counter) + list->tail->current_position), list->counter);
 	printf("Each node contains %d relations\n\n", list->tuples_size);
 	freeList(list);
@@ -148,8 +148,6 @@ void freeList(List *list)
 	}
 }
 
-//  NA TA DOUME AUTA EINAI POU DIAVAZOYN TA ARXEIA MAS?
-
 void printRelation(relation *rel)
 {
     for (int i=0; i<10; i++)
@@ -170,8 +168,6 @@ int getListTotalRel(List *list)
 {
 	return (list->tuples_size * --list->counter) + list->tail->current_position;
 }
-
-
 
 
 

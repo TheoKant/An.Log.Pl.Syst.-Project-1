@@ -311,7 +311,7 @@ void CuSuiteDetails(CuSuite* testSuite, CuString* details)
 	{
 		int passCount = testSuite->count - testSuite->failCount;
 		const char* testWord = passCount == 1 ? "test" : "tests";
-		CuStringAppendFormat(details, "OK (%d %s)\n", passCount, testWord);
+		CuStringAppendFormat(details, "All functions selected to pass from software testing came forward succesfully (%d %s)\n", passCount, testWord);
 	}
 	else
 	{

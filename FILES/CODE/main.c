@@ -22,32 +22,42 @@ int main()
 	S = relation_create( S ) ;
 
 
-	//read_file ( R , "/mnt/c/users/Γιώργος/Desktop/An.Log.Pl.Syst.-Project-1/FILES/Datasets/tiny/relA" ) ;
-	//read_file ( S , "/mnt/c/users/Γιώργος/Desktop/An.Log.Pl.Syst.-Project-1/FILES/Datasets/tiny/relB" ) ;
+	read_file ( R , "/mnt/c/users/Γιώργος/Desktop/An.Log.Pl.Syst.-Project-1/FILES/Datasets/tiny/relA" ) ;
+	read_file ( S , "/mnt/c/users/Γιώργος/Desktop/An.Log.Pl.Syst.-Project-1/FILES/Datasets/tiny/relB" ) ;
 
-	read_file ( R , "/home/parallels/Desktop/An.Log.Pl.Syst.-Project-1/FILES/Datasets/tiny/relA" ) ;
-	read_file ( S , "/home/parallels/Desktop/An.Log.Pl.Syst.-Project-1/FILES/Datasets/tiny/relB" ) ;
+	// read_file ( R , "/home/parallels/Desktop/An.Log.Pl.Syst.-Project-1/FILES/Datasets/tiny/relA" ) ;
+	// read_file ( S , "/home/parallels/Desktop/An.Log.Pl.Syst.-Project-1/FILES/Datasets/tiny/relB" ) ;
 
 
 	int r = relation_getnumtuples( R ); //total tuples in r relation
+	printf("Total tuples of R relation are %d\n" , R->num_tuples );
 	
 	int s = relation_getnumtuples( S ); //total tuples in s relation
+	printf("Total tuples of S relation are %d\n\n" , S->num_tuples );
 	
 
 	bucket_sort ( R , 0 , r-1 , 1 ) ; //FIRST WE SORT THE R RELATIOM
 	bucket_sort ( S , 0 , s-1 , 1 ) ; //THEN WE SORT THE S RELATION
 
+
+	int sortedr = relation_checkifsorted ( R ) ;
+	int sorteds =  relation_checkifsorted ( S ) ;
+
+	if (sortedr && sorteds) //chech if relations are indeed sorted
+	{
+		printf("The relations sorted Succesfully\n\n");
+	}else{
+		printf("Relations failed to be sorted Succesfully\n\n");
+	}
+
+	join(R, S, &list); //Join common keys from Relation R to Relation S.
 	
-	relation_checkifsorted ( R ) ;
-	relation_checkifsorted ( S ) ;
+	//Software Testing
 
+	RunAllTest();
+	printf("For Software Test Results Check UnityTest.txt!\n\n");
 
-
-	join(R, S, &list);
-	printf("For Unity Test Results Check UnityTest.txt!\n\n");
-
-	//RunAllTest();
-
+	//Free Memory
 	relation_free ( R ) ;
 	relation_free ( S ) ;
 	free ( R ) ;
@@ -82,7 +92,7 @@ void read_file ( relation * rel , char * file_name ) {
 			total_tuples++;
 	}
 
-	printf("total tuples are %d\n" , total_tuples );
+	//printf("total tuples are %d\n" , total_tuples );
 
 	free(line);
 

@@ -7,6 +7,10 @@ CuSuite* EqualUtilGetSuite();
 
 void TestJoin(CuTest *tc);
 
+void TestSort(CuTest *tc);
+
+void CheckRelTuples(CuTest *tc);
+
 void RunAllTest(void);
 
 #endif
