@@ -11,10 +11,6 @@ Listnode* initListNode(List *list)
 	return new_node;
 }
 
-
-
-
-
 void initlist(List *list, int maxbytes, int record_size)
 {
 	list->head= NULL;
@@ -23,12 +19,10 @@ void initlist(List *list, int maxbytes, int record_size)
 	list->tuples_size = (maxbytes/record_size);
 }
 
-
 int isEmpty(List *list)
 {
 	return list->counter == 0;
 }
-
 
 void insertNewNode(List *list)
 {
@@ -106,21 +100,42 @@ void printList(List *list)
 	{
 		printf("The list doesnt't contain any equal relation, it is Empty\n");
 	}
+	//REMOVE COMMENTS IF YOU WANT TO PRINT IN FILE
+	/*
 	while(tmp != NULL)
 	{
+
 		for(int i=0;i<tmp->current_position;i++)
+
+		// printTuples(tmp);
+		
+		/*for(int i=0;i<tmp->current_position;i++)
 		{
-			fprintf(fp, "(%ld, %ld)\n", tmp->tuples[i].key, tmp->tuples[i].payload);
+			fprintf(fp, "(%llu, %llu)\n", tmp->tuples[i].key, tmp->tuples[i].payload);
 		}
 		tmp = tmp->next;
 	}
+	*/
 	printf("\n\n");
-	printf("To view the results go to Join_Results.txt!\n\n");
+	printf("To view the results remove comments from  printList in list.c and go to Join_Results.txt!\n\n");
 	printf("The list created to hold the results contains %d equal relations divided into %d nodes.\n", ((list->tuples_size * --list->counter) + list->tail->current_position), list->counter);
 	printf("Each node contains %d relations\n\n", list->tuples_size);
 	freeList(list);
 }
 
+
+
+void printTuples(Listnode *node)
+{
+	int i;
+	FILE *fp;
+	fp = fopen("Join_Results.txt", "w");
+	for(i=0;i<node->current_position;i++)
+	{
+		fprintf(fp, "(%llu, %llu)\n", node->tuples[i].key, node->tuples[i].payload);
+	}
+	fclose(fp);
+}
 
 void freeListNode(Listnode *listnode)
 {
@@ -143,8 +158,8 @@ void printRelation(relation *rel)
 {
     for (int i=0; i<10; i++)
     {
-    	printf("%ld\t", rel->tuples[i].key);
-        printf("%ld ", rel->tuples[i].payload);
+    	printf("%llu\t", rel->tuples[i].key);
+        printf("%llu ", rel->tuples[i].payload);
         printf("\n");
     }
     printf("\n\n");
