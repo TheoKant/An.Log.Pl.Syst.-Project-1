@@ -1,4 +1,0 @@
-...
-
-All functions selected to pass from software testing came forward succesfully (3 tests)
-
