@@ -24,5 +24,7 @@ CuTest.o: FILES/CODE/CuTest.c
 
 clean:
 	rm *.o
-	rm /EXEC/test
+	rm EXEC/test
+	rm UnityTest.txt
+	rm Join_Results.txt
 

@@ -8,11 +8,6 @@
 
 void bucket_sort ( relation *rel , int start , int end , int bpos ) {
 	if ( bpos <= 8 ){
-
-		if (bpos == 2)
-		{
-		//	relation_print ( rel ) ;
-		}
 	/*We check if bpos <=8 for the case when bpos > 8.If bpos >8 that means that all of the keys in the current
 		part are equal.This happens because the keys we are checking are 64 bit sized ,
 		so if bpos >8 that means that we have examined all 8 bytes and that they are equal.
@@ -68,6 +63,7 @@ void bucket_sort ( relation *rel , int start , int end , int bpos ) {
 			}
 
 			//Free Memory
+			relation_free ( temp ) ;
 			free(temp);
 			free(hist);
 			for ( int k = 0 ; k < psum_size ; k++ ){

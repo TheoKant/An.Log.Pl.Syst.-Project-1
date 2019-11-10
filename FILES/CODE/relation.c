@@ -70,3 +70,7 @@ void relation_print ( relation *rel ) {
 		printf ( "KEY IS %ld PAYLOAD IS %ld \n" , relation_getkey ( rel , i ) , relation_getpayload ( rel , i ) ) ;
 	}
 }
+
+void relation_free ( relation *rel ) {
+	free (rel->tuples);
+}

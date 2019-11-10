@@ -15,7 +15,7 @@ int main()
 	relation *R;
 	relation *S;
 
-	initlist(&list, MAXSIZE, sizeof(tuple));
+	//initlist(&list, MAXSIZE, sizeof(tuple));
 
 
 	R = relation_create( R ) ;
@@ -25,8 +25,8 @@ int main()
 	//read_file ( R , "/mnt/c/users/Γιώργος/Desktop/An.Log.Pl.Syst.-Project-1/FILES/Datasets/tiny/relA" ) ;
 	//read_file ( S , "/mnt/c/users/Γιώργος/Desktop/An.Log.Pl.Syst.-Project-1/FILES/Datasets/tiny/relB" ) ;
 
-	read_file ( R , "/home/parallels/Desktop/An.Log.Pl.Syst.-Project-1/FILES/Datasets/medium/relA" ) ;
-	read_file ( S , "/home/parallels/Desktop/An.Log.Pl.Syst.-Project-1/FILES/Datasets/medium/relB" ) ;
+	read_file ( R , "/home/parallels/Desktop/An.Log.Pl.Syst.-Project-1/FILES/Datasets/tiny/relA" ) ;
+	read_file ( S , "/home/parallels/Desktop/An.Log.Pl.Syst.-Project-1/FILES/Datasets/tiny/relB" ) ;
 
 	int r = relation_getnumtuples( R ); //total tuples in r relation
 	
@@ -42,10 +42,15 @@ int main()
 
 
 
-	join(R, S, &list);
+	//join(R, S, &list);
 	printf("For Unity Test Results Check UnityTest.txt!\n\n");
 
-	RunAllTest();
+	//RunAllTest();
+
+	relation_free ( R ) ;
+	relation_free ( S ) ;
+	free ( R ) ;
+	free ( S ) ;
 }
 
 void read_file ( relation * rel , char * file_name ) {

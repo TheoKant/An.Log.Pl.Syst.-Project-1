@@ -26,3 +26,5 @@ int relation_checkifsorted ( relation *  ) ;
 
 void relation_print ( relation * ) ;
 
+void relation_free ( relation * ) ;
+
