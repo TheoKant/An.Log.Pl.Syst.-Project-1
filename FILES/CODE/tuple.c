@@ -4,19 +4,18 @@
 #include "../HEADERS/tuple.h"
 
 
-uint64_t tuple_getkey ( tuple *this ) {
+unsigned long long tuple_getkey ( tuple *this ) {
 	return this->key ;
 }
 
-uint64_t tuple_getpayload ( tuple *this ) {
+unsigned long long tuple_getpayload ( tuple *this ) {
 	return this->payload ;
 }
 
-void tuple_setkey ( tuple *this , uint64_t k ) {
+void tuple_setkey ( tuple *this , unsigned long long k ) {
 	this->key = k;
 }
 
-void tuple_setpayload ( tuple *this , uint64_t p ) {
+void tuple_setpayload ( tuple *this , unsigned long long p ) {
 	this->payload = p;
-}
-
+};
