@@ -24,3 +24,5 @@ int relation_getnumtuples ( relation * ) ;
 
 int relation_checkifsorted ( relation *  ) ;
 
+void relation_print ( relation * ) ;
+

@@ -8,13 +8,18 @@
 
 void bucket_sort ( relation *rel , int start , int end , int bpos ) {
 	if ( bpos <= 8 ){
+
+		if (bpos == 2)
+		{
+		//	relation_print ( rel ) ;
+		}
 	/*We check if bpos <=8 for the case when bpos > 8.If bpos >8 that means that all of the keys in the current
 		part are equal.This happens because the keys we are checking are 64 bit sized ,
 		so if bpos >8 that means that we have examined all 8 bytes and that they are equal.
 	*/
 		int total_tuples = count_tuples ( start , end ) ;
 		int size = calculate_size( total_tuples ) ;
-		if ( size <= 64000 ) {
+		if ( size <= 1 ) {
 			quicksort ( rel , start - 1, end ) ;
 		}
 		else {
@@ -109,7 +114,7 @@ int extract_and_add_to_temp ( relation *rel , relation *temp , int start , int e
 	int r_total_tuples = relation_getnumtuples ( rel );
 	uint64_t key,payload;
 
-	for (int i = start; i < end ; i++ ){ //Scan original rel's tuples
+	for (int i = start; i < end + 1; i++ ){ //Scan original rel's tuples
 		//Get key
 		key = relation_getkey ( rel , i /*position of tuple that we want to get*/);
 		if ( get_sigbyte ( key , bpos ) == byte ) { //Check if it matches current significant byte
@@ -161,7 +166,6 @@ int get_psumsize ( int *hist ) {
 //Create Hist
 
 int *create_hist ( relation *rel , int *hist , int start , int end , int bnum ) {
-
 	uint64_t s_byte;
 	uint64_t key;
 
@@ -173,9 +177,6 @@ int *create_hist ( relation *rel , int *hist , int start , int end , int bnum ) 
 	for (int i = start ; i <= end ; i++ ) {
 		key = relation_getkey ( rel , i ) ;
 		s_byte = get_sigbyte ( key , bnum ) ;
-		if ( s_byte < 0 || s_byte > 256 ) {
-			printf("ERROR\n");
-		}
 		hist[s_byte]++;
 	}
 	return hist; 
