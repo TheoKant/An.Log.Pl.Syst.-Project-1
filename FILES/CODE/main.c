@@ -28,8 +28,6 @@ int main()
 	read_file ( R , "/home/parallels/Desktop/An.Log.Pl.Syst.-Project-1/FILES/Datasets/tiny/relA" ) ;
 	read_file ( S , "/home/parallels/Desktop/An.Log.Pl.Syst.-Project-1/FILES/Datasets/tiny/relB" ) ;
 
-	relation_print ( R ) ;
-
 
 	int r = relation_getnumtuples( R ); //total tuples in r relation
 	
